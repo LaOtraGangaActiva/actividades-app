@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface TallerRepository {
     Usuario save(Usuario usuario);
     Optional<Usuario> getFindByyId(Long id);
-    Optional<Usuario> findByDiscordUserId(String discordUserId);
+    //Optional<Usuario> findByDiscordUserId(String discordUserId);
     void deleteBy(Long id);
 }
