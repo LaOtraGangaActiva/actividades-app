@@ -7,6 +7,7 @@ public class Usuario {
     private String discordUserId;
     private String curso;
     private String email;
+
     public Usuario(){}
 
    public Usuario(Long id, String nombre, perfilUsuario perfil, String discordUserId, String curso, String email){

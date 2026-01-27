@@ -4,5 +4,5 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TallerServiceImpl {
-    private static final Logger log = LoggerFactory.getLogger(TallerServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TallerServiceImpl.class);
 }
