@@ -107,9 +107,9 @@
         </module>
 
         <!-- Separar miembros con líneas en blanco (métodos, campos, bloques) -->
-        <module name="EmptyLineSeparator">
-            <property name="allowNoEmptyLineBetweenFields" value="true"/>
-        </module>
+<!--        <module name="EmptyLineSeparator">-->
+<!--            <property name="allowNoEmptyLineBetweenFields" value="true"/>-->
+<!--        </module>-->
 
         <!-- Requerir default en los switch -->
         <module name="MissingSwitchDefault"/>
@@ -122,12 +122,12 @@
         </module>
 
         <!-- Control básico de indentación -->
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="8"/>
-        </module>
+<!--        <module name="Indentation">-->
+<!--            <property name="basicOffset" value="4"/>-->
+<!--            <property name="braceAdjustment" value="0"/>-->
+<!--            <property name="caseIndent" value="4"/>-->
+<!--            <property name="lineWrappingIndentation" value="8"/>-->
+<!--        </module>-->
 
         <!-- Marcar comentarios TODO -->
         <module name="TodoComment"/>
