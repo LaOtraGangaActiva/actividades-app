@@ -1,4 +1,17 @@
 package es.fplumara.dam1.actividades.repository;
 
-public class InscripcionRepository {
+import es.fplumara.dam1.actividades.model.Inscripcion;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface InscripcionRepository {
+    Inscripcion save(Inscripcion inscripcion);
+    Optional<Inscripcion> findById(Long id);
+    Optional<Inscripcion> findByTallerIdAndUsuarioId(Long tallerId, Long usuarioId);
+    List<Inscripcion> findByTallerId(Long tallerId);
+    List<Inscripcion> findByUsuarioId(Long usuarioId);
+    List<Inscripcion> findByTallerIdAndRol(Long tallerId,  rol);
+    void deleteById(Long id);
+    void deleteByTallerIdAndUsuarioId(Long tallerId, Long usuarioId);
 }
