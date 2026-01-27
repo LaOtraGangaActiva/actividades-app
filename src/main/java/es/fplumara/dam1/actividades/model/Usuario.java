@@ -8,15 +8,13 @@ public class Usuario {
     private String curso;
     private String email;
 
-    public Usuario(){}
-
-   public Usuario(Long id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
-    this.id= id;
-    this.nombre= nombre;
-    this.perfil=perfil;
-    this.discordUserId=discordUserId;
-    this.curso=curso;
-    this.email=email;
+    public Usuario(Long id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
+        this.id= id;
+        this.nombre= nombre;
+        this.perfil=perfil;
+        this.discordUserId=discordUserId;
+        this.curso=curso;
+        this.email=email;
     }
 
     public Long getId() {
@@ -31,8 +29,8 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public void getPerfil(){
-        this.perfil=perfil;
+    public PerfilUsuario getPerfil(){
+        return perfil;
     }
 
     public void setPerfil(PerfilUsuario perfil) {
@@ -64,12 +62,11 @@ public class Usuario {
     }
     @Override
     public String toString(){
-
         return "Usuario{"+
-                "id=" + id +
-                ", nombre=" + nombre +
-                ", perfil=" + perfil + ", discordUserId=" + discordUserId + ", curso=" + curso + ", email=" + email;
-    };
+            "id=" + id +
+            ", nombre=" + nombre +
+            ", perfil=" + perfil + ", discordUserId=" + discordUserId + ", curso=" + curso + ", email=" + email;
+        }
     }
 
 
