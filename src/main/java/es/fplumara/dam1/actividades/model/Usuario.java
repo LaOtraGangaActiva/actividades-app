@@ -3,17 +3,76 @@ package es.fplumara.dam1.actividades.model;
 public class Usuario {
     private Long id;
     private String nombre;
-    private String perfil;
+    private PerfilUsuario perfil;
     private String discordUserId;
     private String curso;
     private String email;
+
     public Usuario(){}
+
+   public Usuario(Long id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
+    this.id= id;
+    this.nombre= nombre;
+    this.perfil=perfil;
+    this.discordUserId=discordUserId;
+    this.curso=curso;
+    this.email=email;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNombre() {
+        return nombre;
     }
-}
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void getPerfil(){
+        this.perfil=perfil;
+    }
+
+    public void setPerfil(PerfilUsuario perfil) {
+        this.perfil = perfil;
+    }
+
+    public String getDiscordUserId() {
+        return discordUserId;
+    }
+
+    public void setDiscordUserId(String discordUserId) {
+        this.discordUserId = discordUserId;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    @Override
+    public String toString(){
+
+        return "Usuario{"+
+                "id=" + id +
+                ", nombre=" + nombre +
+                ", perfil=" + perfil + ", discordUserId=" + discordUserId + ", curso=" + curso + ", email=" + email;
+    };
+    }
+
+
+
+
+
