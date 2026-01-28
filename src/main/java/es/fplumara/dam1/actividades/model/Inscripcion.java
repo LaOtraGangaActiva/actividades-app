@@ -1,6 +1,7 @@
 package es.fplumara.dam1.actividades.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Inscripcion {
@@ -10,6 +11,14 @@ public class Inscripcion {
     private RolInscripcion rol;
     private LocalDateTime fechaInscripcion;
     private static final String FORMAT_DATE_TIME = "dd-MM-yyyy / HH:mm:ss";
+
+    public Inscripcion(UUID id, UUID idTaller, UUID idUsuario, RolInscripcion rol, LocalDateTime fechaInscripcion) {
+        this.id = id;
+        this.idTaller = idTaller;
+        this.idUsuario = idUsuario;
+        this.rol = rol;
+        this.fechaInscripcion = fechaInscripcion;
+    }
 
     public UUID getId() {
         return id;
@@ -49,5 +58,16 @@ public class Inscripcion {
 
     public void setFechaInscripcion(LocalDateTime fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "Inscripcion{" +
+                "id=" + id +
+                ", idTaller=" + idTaller +
+                ", idUsuario=" + idUsuario +
+                ", rol=" + rol +
+                ", fechaInscripcion=" + fechaInscripcion.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME)) +
+                '}';
     }
 }

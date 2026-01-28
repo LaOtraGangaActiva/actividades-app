@@ -8,9 +8,19 @@ public class Taller {
     private String titulo;
     private String descripcion;
     private EstadoInscripcion estadoInscripcion;
-    private URL url; //He investigado y no sé si podríamos poner esto o String
+    private String url; //He investigado y no sé si podríamos poner esto o String
     private int cupo;
     private String lugar;
+
+    public Taller(UUID id, String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.estadoInscripcion = estadoInscripcion;
+        this.url = url;
+        this.cupo = cupo;
+        this.lugar = lugar;
+    }
 
     public UUID getId() {
         return id;
@@ -44,11 +54,11 @@ public class Taller {
         this.estadoInscripcion = estadoInscripcion;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
@@ -66,5 +76,18 @@ public class Taller {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    @Override
+    public String toString() {
+        return "Taller{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", estadoInscripcion=" + estadoInscripcion +
+                ", url=" + url +
+                ", cupo=" + cupo +
+                ", lugar='" + lugar + '\'' +
+                '}';
     }
 }
