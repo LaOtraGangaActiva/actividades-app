@@ -26,8 +26,8 @@ public class InMemoryTallerRepository implements TallerRepository {
         return new ArrayList<>(storage.values());
     }
 
-    @Override
-    public void deleteBy(UUID id) {
+
+    public void deleteById(UUID id) {
         storage.remove(id);
     }
 }

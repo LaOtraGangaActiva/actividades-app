@@ -9,7 +9,7 @@ public class Usuario {
     private String discordUserId;
     private String curso;
     private String email;
-
+// do we need to put an empty constructor o not? also for taller?
     public Usuario(String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
         this.nombre= nombre;
         this.perfil=perfil;

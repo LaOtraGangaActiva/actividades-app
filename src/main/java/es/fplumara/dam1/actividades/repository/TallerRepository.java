@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface TallerRepository {
     Taller save(Taller taller);
     Optional<Taller> findById(UUID id);
-    void deleteBy(UUID id);
+    void deleteById(UUID id);
 }
 

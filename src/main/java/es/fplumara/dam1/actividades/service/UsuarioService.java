@@ -11,6 +11,6 @@ Usuario crearUsuario(Usuario usuario);
 List<Usuario> listarUsuario();
 Optional<Usuario> obtenerUsuario(UUID id);
 Usuario actualizarUsuario(UUID id, Usuario usuario);
- //   Borrar con cascada
+ //   delete the user and sus associate inscripciones
 void eliminarUsuario(UUID id);
 }
