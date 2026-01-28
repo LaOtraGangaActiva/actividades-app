@@ -5,27 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Inscripcion {
-    private UUID id;
     private UUID idTaller;
     private UUID idUsuario;
     private RolInscripcion rol;
     private LocalDateTime fechaInscripcion;
     private static final String FORMAT_DATE_TIME = "dd-MM-yyyy / HH:mm:ss";
 
-    public Inscripcion(UUID id, UUID idTaller, UUID idUsuario, RolInscripcion rol, LocalDateTime fechaInscripcion) {
-        this.id = id;
+    public Inscripcion(UUID idTaller, UUID idUsuario, RolInscripcion rol) {
         this.idTaller = idTaller;
         this.idUsuario = idUsuario;
         this.rol = rol;
-        this.fechaInscripcion = fechaInscripcion;
+        this.fechaInscripcion = LocalDateTime.now();
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public String getId() {
+        return idTaller.toString() + "/" + idUsuario.toString();
     }
 
     public UUID getIdTaller() {
@@ -56,14 +50,9 @@ public class Inscripcion {
         return fechaInscripcion;
     }
 
-    public void setFechaInscripcion(LocalDateTime fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
-    }
-
     @Override
     public String toString() {
         return "Inscripcion{" +
-                "id=" + id +
                 ", idTaller=" + idTaller +
                 ", idUsuario=" + idUsuario +
                 ", rol=" + rol +

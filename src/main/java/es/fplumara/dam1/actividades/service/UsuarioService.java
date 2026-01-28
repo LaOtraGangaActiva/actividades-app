@@ -14,19 +14,3 @@ Usuario actualizarUsuario(UUID id, Usuario usuario);
  //   Borrar con cascada
 void eliminarUsuario(UUID id);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
