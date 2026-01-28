@@ -6,26 +6,26 @@ import es.fplumara.dam1.actividades.repository.UsuarioRepository;
 import java.util.*;
 
 public class InMemoryUsuarioRepository implements UsuarioRepository {
-    private Map<UUID, Usuario> almacen = new HashMap<>();
+    private Map<UUID, Usuario> storage = new HashMap<>();
 
     @Override
     public Usuario save(Usuario usuario) {
         if(usuario.getId() == null){
             usuario.setId(UUID.randomUUID());
         }
-        almacen.put(usuario.getId(), usuario);
+        storage.put(usuario.getId(), usuario);
         return usuario;
     }
 
     @Override
     public Optional<Usuario> findById(UUID id) {
-        return Optional.of(almacen.get(id));
+        return Optional.of(storage.get(id));
     }
 
     @Override
     public List<Usuario> findAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        for (Map.Entry<UUID, Usuario> entry : almacen.entrySet()) {
+        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
             usuarios.add(entry.getValue());
         }
         return usuarios;
@@ -34,7 +34,7 @@ public class InMemoryUsuarioRepository implements UsuarioRepository {
     @Override
     public Optional<Usuario> findByEmail(String email) {
         Optional<Usuario> usuario = Optional.empty();
-        for (Map.Entry<UUID, Usuario> entry : almacen.entrySet()) {
+        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
             if(email.equalsIgnoreCase(entry.getValue().getEmail())){
                 usuario = Optional.of(entry.getValue());
             }
@@ -45,7 +45,7 @@ public class InMemoryUsuarioRepository implements UsuarioRepository {
     @Override
     public Optional<Usuario> findByDiscordUserId(String discordUserId) {
         Optional<Usuario> usuario = Optional.empty();
-        for (Map.Entry<UUID, Usuario> entry : almacen.entrySet()) {
+        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
             if(discordUserId.equalsIgnoreCase(entry.getValue().getDiscordUserId())){
                 usuario = Optional.of(entry.getValue());
             }
@@ -55,6 +55,6 @@ public class InMemoryUsuarioRepository implements UsuarioRepository {
 
     @Override
     public void deleteById(UUID id) {
-        almacen.remove(id);
+        storage.remove(id);
     }
 }
