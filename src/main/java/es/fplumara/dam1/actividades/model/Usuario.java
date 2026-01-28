@@ -1,14 +1,16 @@
 package es.fplumara.dam1.actividades.model;
 
+import java.util.UUID;
+
 public class Usuario {
-    private Long id;
+    private UUID id;
     private String nombre;
     private PerfilUsuario perfil;
     private String discordUserId;
     private String curso;
     private String email;
 
-    public Usuario(Long id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
+    public Usuario(UUID id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email){
         this.id= id;
         this.nombre= nombre;
         this.perfil=perfil;
@@ -17,7 +19,11 @@ public class Usuario {
         this.email=email;
     }
 
-    public Long getId() {
+    public void setId(UUID id){
+        this.id = id;
+    }
+
+    public UUID getId() {
         return id;
     }
 
@@ -60,6 +66,7 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
+
     @Override
     public String toString(){
         return "Usuario{"+
