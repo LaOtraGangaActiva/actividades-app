@@ -7,7 +7,7 @@ import java.util.*;
 
 public class InMemoryTallerRepository implements TallerRepository {
 
-    private final Map<UUID, Taller> storage = new HashMap<>();
+    private Map<UUID, Taller> storage = new HashMap<>();
 
     @Override
     public Taller save(Taller taller) {
