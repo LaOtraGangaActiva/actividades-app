@@ -1,32 +1,5 @@
 package es.fplumara.dam1.actividades.repository;
 
-public interface InscripcionRepository {
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*package es.fplumara.dam1.actividades.repository;
-
 import es.fplumara.dam1.actividades.model.Inscripcion;
 import es.fplumara.dam1.actividades.model.RolInscripcion;
 import java.util.List;
@@ -41,4 +14,4 @@ public interface InscripcionRepository {
     List<Inscripcion> findByTallerIdAndRol(Long tallerId, RolInscripcion rol);
     void deleteById(Long id);
     void deleteByTallerIdAndUsuarioId(Long tallerId, Long usuarioId);
-}*/
+}
