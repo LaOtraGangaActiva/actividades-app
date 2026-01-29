@@ -20,16 +20,28 @@ this.email=email;
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public PerfilUsuario getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(PerfilUsuario perfil) {
-        this.perfil = perfil;
+    public String getDiscordUserId() {
+        return discordUserId;
     }
 
-}
+    public String getCurso() {
+        return curso;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    @Override
+    public String toString() {
+        return "UsuarioCreateDto{" +
+                " nombre=" + nombre +
+                ", perfil=" + perfil +
+                ", discordUserId=" + discordUserId +
+                ", curso=" + curso +
+                ", email=" + email +
+                '}';
+}}
