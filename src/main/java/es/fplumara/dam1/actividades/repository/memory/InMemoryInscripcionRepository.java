@@ -16,54 +16,32 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
 
     @Override
     public Optional<Inscripcion> findByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId) {
-        return storage.values().stream()
-                .filter(i -> i.getIdTaller().equals(tallerId) && i.getIdUsuario().equals(usuarioId)
-                ).findFirst();
+        return storage.values().stream().filter(i -> i.getId().equals(tallerId.toString() + "/" + usuarioId.toString())).findFirst();
     }
 
     @Override
     public List<Inscripcion> findByTallerId(UUID tallerId) {
         List<Inscripcion> inscripcions = new ArrayList<>();
-        for (Map.Entry<String, Inscripcion> entry : storage.entrySet()) {
-            if (entry.getValue().getIdTaller() == tallerId) {
-                inscripcions.add(entry.getValue());
-            }
-        }
+        storage.values().stream().filter(i -> i.getIdTaller().equals(tallerId)).forEach(inscripcions::add);
         return inscripcions;
     }
 
     @Override
     public List<Inscripcion> findByUsuarioId(UUID usuarioId) {
         List<Inscripcion> inscripcions = new ArrayList<>();
-        for (Map.Entry<String, Inscripcion> entry : storage.entrySet()) {
-            if (entry.getValue().getIdUsuario() == usuarioId) {
-                inscripcions.add(entry.getValue());
-            }
-        }
+        storage.values().stream().filter(i -> i.getIdUsuario().equals(usuarioId)).forEach(inscripcions::add);
         return inscripcions;
     }
 
     @Override
     public List<Inscripcion> findByTallerIdAndRol(UUID tallerId, RolInscripcion rol) {
         List<Inscripcion> inscripciones = new ArrayList<>();
-        for (Map.Entry<String, Inscripcion> entry : storage.entrySet()) {
-            if (entry.getValue().getIdTaller() == tallerId) {
-                if (entry.getValue().getRol() == rol) {
-                    inscripciones.add(entry.getValue());
-                }
-            }
-        }
+        storage.values().stream().filter(i -> i.getIdTaller().equals(tallerId) && i.getRol().equals(rol)).forEach(inscripciones::add);
         return inscripciones;
     }
 
     @Override
     public void deleteByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId) {
-        for (Map.Entry<String, Inscripcion> entry : storage.entrySet()) {
-            if (entry.getValue().getIdTaller() == tallerId) {
-                if (entry.getValue().getIdUsuario() == usuarioId) {
-                    storage.remove(entry.getKey());
-                }
-            }
-        }
+       storage.values().stream().filter(i -> i.getId().equals(tallerId.toString() + "/" + usuarioId.toString())).forEach(storage::remove);
     }
 }

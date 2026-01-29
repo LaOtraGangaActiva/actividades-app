@@ -24,33 +24,17 @@ public class InMemoryUsuarioRepository implements UsuarioRepository {
 
     @Override
     public List<Usuario> findAll() {
-        List<Usuario> usuarios = new ArrayList<>();
-        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
-            usuarios.add(entry.getValue());
-        }
-        return usuarios;
+        return new ArrayList<>(storage.values());
     }
 
     @Override
     public Optional<Usuario> findByEmail(String email) {
-        Optional<Usuario> usuario = Optional.empty();
-        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
-            if(email.equalsIgnoreCase(entry.getValue().getEmail())){
-                usuario = Optional.of(entry.getValue());
-            }
-        }
-        return usuario;
+        return storage.values().stream().filter(i -> i.getEmail().equals(email)).findFirst();
     }
 
     @Override
     public Optional<Usuario> findByDiscordUserId(String discordUserId) {
-        Optional<Usuario> usuario = Optional.empty();
-        for (Map.Entry<UUID, Usuario> entry : storage.entrySet()) {
-            if(discordUserId.equalsIgnoreCase(entry.getValue().getDiscordUserId())){
-                usuario = Optional.of(entry.getValue());
-            }
-        }
-        return usuario;
+        return storage.values().stream().filter(i -> i.getDiscordUserId().equals(discordUserId)).findFirst();
     }
 
     @Override
