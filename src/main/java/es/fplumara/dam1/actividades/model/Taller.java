@@ -33,15 +33,6 @@ public class Taller {
         this.lugar = lugar;
     }
 
-    public Taller(String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.estadoInscripcion = estadoInscripcion;
-        this.url = url;
-        this.cupo = cupo;
-        this.lugar = lugar;
-    }
-
     public UUID getId() {
         return id;
     }
