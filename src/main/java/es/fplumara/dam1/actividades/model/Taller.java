@@ -12,8 +12,19 @@ public class Taller {
     private int cupo;
     private String lugar;
 
+
+    // constructor with id for existing talleres
     public Taller(UUID id, String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
         this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.estadoInscripcion = estadoInscripcion;
+        this.url = url;
+        this.cupo = cupo;
+        this.lugar = lugar;
+    }
+    // constructor with id for creating new talleres
+    public Taller(String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estadoInscripcion = estadoInscripcion;
