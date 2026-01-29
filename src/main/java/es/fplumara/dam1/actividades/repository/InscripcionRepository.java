@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InscripcionRepository {
-    Inscripcion save(Inscripcion inscripcion);
+    void save(Inscripcion inscripcion);
     Optional<Inscripcion> findByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId);
     List<Inscripcion> findByTallerId(UUID tallerId);
     List<Inscripcion> findByUsuarioId(UUID usuarioId);
