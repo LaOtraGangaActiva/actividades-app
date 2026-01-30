@@ -3,7 +3,7 @@ package es.fplumara.dam1.actividades.model;
 import java.net.URL;
 import java.util.UUID;
 
-public class Taller {
+public class Taller implements Identificable<UUID> {
     private UUID id;
     private String titulo;
     private String descripcion;
