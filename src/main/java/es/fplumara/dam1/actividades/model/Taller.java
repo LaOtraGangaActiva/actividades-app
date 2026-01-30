@@ -8,7 +8,7 @@ public class Taller implements Identificable<UUID>{
     private String titulo;
     private String descripcion;
     private EstadoInscripcion estadoInscripcion;
-    private String url; //He investigado y no sé si podríamos poner esto o String
+    private String url;
     private int cupo;
     private String lugar;
 
