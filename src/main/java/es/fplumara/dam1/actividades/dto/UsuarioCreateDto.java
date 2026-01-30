@@ -2,46 +2,11 @@ package es.fplumara.dam1.actividades.dto;
 
 import es.fplumara.dam1.actividades.model.PerfilUsuario;
 
-public class UsuarioCreateDto {
-    private String nombre;
-    private PerfilUsuario perfil;
-    private String discordUserId;
-    private String curso;
-    private String email;
-    public UsuarioCreateDto(String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email) {
-        this.nombre = nombre;
-this.perfil=perfil;
-this.discordUserId=discordUserId;
-this.curso=curso;
-this.email=email;
-    }
+public record UsuarioCreateDto(
+        String nombre,
+        PerfilUsuario perfil,
+        String discordUserId,
+        String curso,
+        String email
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public PerfilUsuario getPerfil() {
-        return perfil;
-    }
-
-    public String getDiscordUserId() {
-        return discordUserId;
-    }
-
-    public String getCurso() {
-        return curso;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    @Override
-    public String toString() {
-        return "UsuarioCreateDto{" +
-                " nombre=" + nombre +
-                ", perfil=" + perfil +
-                ", discordUserId=" + discordUserId +
-                ", curso=" + curso +
-                ", email=" + email +
-                '}';
-}}
+) {}

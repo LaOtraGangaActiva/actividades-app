@@ -2,6 +2,7 @@ package es.fplumara.dam1.actividades.repository.memory;
 
 import es.fplumara.dam1.actividades.model.Inscripcion;
 import es.fplumara.dam1.actividades.model.RolInscripcion;
+import es.fplumara.dam1.actividades.model.Usuario;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
 
 import java.util.*;
@@ -41,7 +42,7 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
     }
 
     @Override
-    public void deleteByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId) {
+    public void deleteByTallerIdAndUsuarioId(UUID tallerId, Usuario usuarioId) {
        storage.values().stream().filter(i -> i.getId().equals(tallerId.toString() + "/" + usuarioId.toString())).forEach(storage::remove);
     }
 }
