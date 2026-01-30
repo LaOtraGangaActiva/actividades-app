@@ -35,6 +35,12 @@ public class InMemoryInscripcionRepository extends InMemoryRepository<Inscripcio
     }
 
     @Override
+    public void deleteByUsuarioId(UUID usuarioId){
+        storage.values().removeIf(i -> i.getIdUsuario().equals(usuarioId));
+
+    }
+
+    @Override
     public void deleteByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId) {
        this.deleteById(tallerId.toString() + "/" + usuarioId.toString());
     }

@@ -8,8 +8,6 @@ public class Usuario implements Identificable<UUID>{
     private String discordUserId;
     private String curso;
     private String email;
-
-    // do we need to put an empty constructor o not? also for taller?
     public Usuario(UUID id, String nombre, PerfilUsuario perfil, String discordUserId, String curso, String email) {
         this.id = id;
         this.nombre = nombre;
