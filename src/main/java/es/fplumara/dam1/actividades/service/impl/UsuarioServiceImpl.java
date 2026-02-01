@@ -61,7 +61,7 @@ import java.util.UUID;
             return usuarioRepository.save(usuario);
         }
 
-        //lerr
+        //leer
 
         public List<Usuario> listarUsuarios() {
             return usuarioRepository.findAll();
