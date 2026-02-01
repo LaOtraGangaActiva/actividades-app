@@ -1,6 +1,7 @@
 package es.fplumara.dam1.actividades.service.imp;
 
 import es.fplumara.dam1.actividades.dto.UsuarioCreateDto;
+import es.fplumara.dam1.actividades.exception.BusinessRuleException;
 import es.fplumara.dam1.actividades.model.PerfilUsuario;
 import es.fplumara.dam1.actividades.model.Usuario;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
@@ -12,42 +13,172 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UsuarioServiceImplTest {
-        @Mock
-        UsuarioRepository usuarioRepository;
 
-        @Mock
-        InscripcionRepository inscripcionRepository;
+    @Mock
+    UsuarioRepository usuarioRepository;
 
-        @InjectMocks
-        UsuarioServiceImpl service;
+    @Mock
+    InscripcionRepository inscripcionRepository;
 
-        @Test
-        void crearUsuario_OK() {
+    @InjectMocks
+    UsuarioServiceImpl service;
 
-            UsuarioCreateDto dto = new UsuarioCreateDto(
-                    "Farzia",
-                    PerfilUsuario.ALUMNO,
-                    "discord123",
-                    "DAM1",
-                    "farzia@mail.com"
-            );
+    @Test
+    void crearUsuario_OK() {
+        // Given
+        UsuarioCreateDto dto = new UsuarioCreateDto(
+                "Farzia",
+                PerfilUsuario.ALUMNO,
+                "discord123",
+                "DAM1",
+                "farzia@mail.com"
+        );
 
-            when(usuarioRepository.findAll()).thenReturn(List.of());
-            when(usuarioRepository.save(any())).thenAnswer(i -> i.getArgument(0));
+        // Mock: findByEmail returns empty (no duplicate)
+        when(usuarioRepository.findByEmail("farzia@mail.com")).thenReturn(Optional.empty());
 
-            Usuario usuario = service.crearUsuario(dto);
+        // Mock: findByDiscordUserId returns empty (no duplicate)
+        when(usuarioRepository.findByDiscordUserId("discord123")).thenReturn(Optional.empty());
 
-            assertEquals("Farzia", usuario.getNombre());
-            verify(usuarioRepository).save(any());
-        }
+        // Mock: save returns the user with ID
+        Usuario savedUser = new Usuario(
+                UUID.randomUUID(),  // Auto-generated ID
+                "Farzia",
+                PerfilUsuario.ALUMNO,
+                "discord123",
+                "DAM1",
+                "farzia@mail.com"
+        );
+        when(usuarioRepository.save(any(Usuario.class))).thenReturn(savedUser);
+
+        // When
+        Usuario usuario = service.crearUsuario(dto);
+
+        // Then
+        assertEquals("Farzia", usuario.getNombre());
+        assertEquals(PerfilUsuario.ALUMNO, usuario.getPerfil());
+        assertEquals("DAM1", usuario.getCurso());
+
+        // Verify the method was called
+        verify(usuarioRepository).save(any(Usuario.class));
+
+        // Verify duplicate checks were called
+        verify(usuarioRepository).findByEmail("farzia@mail.com");
+        verify(usuarioRepository).findByDiscordUserId("discord123");
     }
 
+    @Test
+    void crearUsuario_EmailDuplicado_ThrowsException() {
+        // Given
+        UsuarioCreateDto dto = new UsuarioCreateDto(
+                "Farzia",
+                PerfilUsuario.ALUMNO,
+                "discord123",
+                "DAM1",
+                "farzia@mail.com"
+        );
+
+        // Mock: A user already has this email
+        Usuario existingUser = new Usuario(
+                UUID.randomUUID(),
+                "Existing User",
+                PerfilUsuario.ALUMNO,
+                "discord456",
+                "DAM2",
+                "farzia@mail.com"
+        );
+        when(usuarioRepository.findByEmail("farzia@mail.com")).thenReturn(Optional.of(existingUser));
+
+        // When/Then
+        assertThrows(BusinessRuleException.class, () -> {
+            service.crearUsuario(dto);
+        });
+
+        // Verify save was NOT called
+        verify(usuarioRepository, never()).save(any());
+    }
+
+    @Test
+    void crearUsuario_DiscordIdDuplicado_ThrowsException() {
+        // Given
+        UsuarioCreateDto dto = new UsuarioCreateDto(
+                "Farzia",
+                PerfilUsuario.ALUMNO,
+                "discord123",  // Duplicate Discord ID
+                "DAM1",
+                "farzia@mail.com"
+        );
+
+        // Mock: Email check passes
+        when(usuarioRepository.findByEmail("farzia@mail.com")).thenReturn(Optional.empty());
+
+        // Mock: Discord ID already exists
+        Usuario existingUser = new Usuario(
+                UUID.randomUUID(),
+                "Existing User",
+                PerfilUsuario.ALUMNO,
+                "discord123",  // Same Discord ID
+                "DAM2",
+                "other@mail.com"
+        );
+        when(usuarioRepository.findByDiscordUserId("discord123")).thenReturn(Optional.of(existingUser));
+
+        // When/Then
+        assertThrows(BusinessRuleException.class, () -> {
+            service.crearUsuario(dto);
+        });
+
+        // Verify save was NOT called
+        verify(usuarioRepository, never()).save(any());
+    }
+
+    @Test
+    void crearUsuario_CursoSinSerAlumno_ThrowsException() {
+        // Given: PROFESOR profile but has a course (invalid!)
+        UsuarioCreateDto dto = new UsuarioCreateDto(
+                "Professor",
+                PerfilUsuario.PROFESOR,  // NOT ALUMNO
+                "discord123",
+                "DAM1",  // Has course but not ALUMNO
+                "prof@mail.com"
+        );
+
+        // When and the
+        assertThrows(BusinessRuleException.class, () -> {
+            service.crearUsuario(dto);
+        });
+
+        // Verify no repository calls were made
+        verify(usuarioRepository, never()).save(any());
+        verify(usuarioRepository, never()).findByEmail(any());
+    }
+
+    @Test
+    void crearUsuario_NombreVacio_ThrowsException() {
+        // Given- Empty name
+        UsuarioCreateDto dto = new UsuarioCreateDto(
+                "",  // Empty name!
+                PerfilUsuario.ALUMNO,
+                "discord123",
+                "DAM1",
+                "farzia@mail.com"
+        );
+
+        // When and then
+        assertThrows(BusinessRuleException.class, () -> {
+            service.crearUsuario(dto);
+        });
+
+        // if no repository calls were made
+        verify(usuarioRepository, never()).save(any());
+    }
+}
