@@ -4,6 +4,7 @@ import es.fplumara.dam1.actividades.dto.TallerCreateDto;
 import es.fplumara.dam1.actividades.exception.NotFoundException;
 import es.fplumara.dam1.actividades.model.EstadoInscripcion;
 import es.fplumara.dam1.actividades.model.Taller;
+import es.fplumara.dam1.actividades.repository.TallerRepository;
 import es.fplumara.dam1.actividades.repository.memory.InMemoryTallerRepository;
 import es.fplumara.dam1.actividades.service.TallerService;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 public class TallerServiceImpl implements TallerService  {
     private static final Logger LOG = LoggerFactory.getLogger(TallerServiceImpl.class);
-    InMemoryTallerRepository tallerRepository = new InMemoryTallerRepository();
+    TallerRepository tallerRepository = new InMemoryTallerRepository();
 
     @Override
     public Taller crearTaller(TallerCreateDto dto) {
