@@ -1,6 +1,8 @@
 package es.fplumara.dam1.actividades.service.impl;
 
-import es.fplumara.dam1.actividades.dto.TallerCreateDto;
+import es.fplumara.dam1.actividades.dto.TallerCreateOrUpdateDto;
+import es.fplumara.dam1.actividades.exception.BusinessRuleException;
+import es.fplumara.dam1.actividades.exception.EmptyFieldException;
 import es.fplumara.dam1.actividades.exception.NotFoundException;
 import es.fplumara.dam1.actividades.model.EstadoInscripcion;
 import es.fplumara.dam1.actividades.model.Taller;
@@ -18,8 +20,26 @@ public class TallerServiceImpl implements TallerService  {
     TallerRepository tallerRepository = new InMemoryTallerRepository();
 
     @Override
-    public Taller crearTaller(TallerCreateDto dto) {
-        return null;
+    public Taller crearTaller(TallerCreateOrUpdateDto dto) {
+        if(dto.titulo().isEmpty() || dto.titulo().isBlank()){
+            throw new EmptyFieldException("El taller debe tener un título");
+        }
+        if(dto.descripcion().isEmpty() || dto.descripcion().isBlank()){
+            throw new EmptyFieldException("El taller debe tener descripción");
+        }
+        if(!(dto.estadoInscripcion().equals(EstadoInscripcion.CERRADO) || dto.estadoInscripcion().equals(EstadoInscripcion.ABIERTO))){
+            throw new BusinessRuleException("El estado de la inscripción no se ha especificado correctamente");
+        }
+        if(dto.url().isEmpty() || dto.url().isBlank()){
+            throw new EmptyFieldException("El taller debe tener url asociada");
+        }
+        if(dto.cupo() <= 0){
+            throw new BusinessRuleException("El cupo del taller debe ser mayor a 0");
+        }
+        if(dto.lugar().isEmpty() || dto.lugar().isBlank()){
+            throw new EmptyFieldException("El taller debe tener lugar");
+        }
+        return tallerRepository.save(new Taller(dto.titulo(), dto.descripcion(), dto.estadoInscripcion(), dto.url(), dto.cupo(), dto.lugar()));
     }
 
     @Override
@@ -33,7 +53,33 @@ public class TallerServiceImpl implements TallerService  {
     }
 
     @Override
-    public Taller actualizarTaller(UUID id, Taller taller) {
+    public Taller actualizarTaller(UUID idTaller, TallerCreateOrUpdateDto dto) {
+        Taller taller = tallerRepository.findById(idTaller).orElseThrow(NotFoundException::new);
+        if(dto.titulo().isEmpty() || dto.titulo().isBlank()){
+            throw new EmptyFieldException("El taller debe tener un título");
+        }
+        if(dto.descripcion().isEmpty() || dto.descripcion().isBlank()){
+            throw new EmptyFieldException("El taller debe tener descripción");
+        }
+        if(!(dto.estadoInscripcion().equals(EstadoInscripcion.CERRADO) || dto.estadoInscripcion().equals(EstadoInscripcion.ABIERTO))){
+            throw new BusinessRuleException("El estado de la inscripción no se ha especificado correctamente");
+        }
+        if(dto.url().isEmpty() || dto.url().isBlank()){
+            throw new EmptyFieldException("El taller debe tener url asociada");
+        }
+        if(dto.cupo() <= 0){
+            throw new BusinessRuleException("El cupo del taller debe ser mayor a 0");
+        }
+        if(dto.lugar().isEmpty() || dto.lugar().isBlank()){
+            throw new EmptyFieldException("El taller debe tener lugar");
+        }
+
+        taller.setTitulo(dto.titulo());
+//        taller.setDescripcion(dto.descripcion());
+//        taller.setTitulo(dto.titulo());
+//        taller.setTitulo(dto.titulo());
+//        taller.setTitulo(dto.titulo());
+//        taller.setTitulo(dto.titulo());
         return null;
     }
 
