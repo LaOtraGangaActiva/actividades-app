@@ -14,4 +14,5 @@ public interface InscripcionRepository extends Repository<Inscripcion,String> {
     List<Inscripcion> findByTallerIdAndRol(UUID tallerId, RolInscripcion rol);
     void deleteByUsuarioId(UUID usuarioId);
     void deleteByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId);
+    void deleteByTallerId(UUID tallerId);
 }
