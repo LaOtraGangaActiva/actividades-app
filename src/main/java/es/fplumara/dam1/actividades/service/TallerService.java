@@ -1,6 +1,5 @@
 package es.fplumara.dam1.actividades.service;
 
-import es.fplumara.dam1.actividades.dto.TallerCreateOrUpdateDto;
 import es.fplumara.dam1.actividades.model.EstadoInscripcion;
 import es.fplumara.dam1.actividades.model.Taller;
 

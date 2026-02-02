@@ -1,6 +1,5 @@
 package es.fplumara.dam1.actividades.service.impl;
 
-import es.fplumara.dam1.actividades.dto.TallerCreateOrUpdateDto;
 import es.fplumara.dam1.actividades.exception.BusinessRuleException;
 import es.fplumara.dam1.actividades.exception.EmptyFieldException;
 import es.fplumara.dam1.actividades.exception.NotFoundException;

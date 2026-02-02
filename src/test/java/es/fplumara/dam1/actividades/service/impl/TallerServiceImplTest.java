@@ -1,6 +1,5 @@
 package es.fplumara.dam1.actividades.service.impl;
 
-import es.fplumara.dam1.actividades.dto.TallerCreateOrUpdateDto;
 import es.fplumara.dam1.actividades.exception.EmptyFieldException;
 import es.fplumara.dam1.actividades.exception.NotFoundException;
 import es.fplumara.dam1.actividades.model.EstadoInscripcion;
@@ -16,7 +15,6 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
