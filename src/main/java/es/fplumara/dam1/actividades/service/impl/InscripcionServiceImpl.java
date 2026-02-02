@@ -1,6 +1,8 @@
 package es.fplumara.dam1.actividades.service.impl;
 
 import es.fplumara.dam1.actividades.dto.InscripcionCreateDto;
+import es.fplumara.dam1.actividades.exception.BusinessRuleException;
+import es.fplumara.dam1.actividades.exception.NotFoundException;
 import es.fplumara.dam1.actividades.model.*;
 import es.fplumara.dam1.actividades.repository.*;
 import es.fplumara.dam1.actividades.repository.memory.*;
@@ -11,15 +13,25 @@ import java.util.*;
 public class InscripcionServiceImpl implements InscripcionService {
     private InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
     private UsuarioRepository usuarioRepository = new InMemoryUsuarioRepository();
+    private TallerRepository tallerRepository = new InMemoryTallerRepository();
 
     @Override
     public void inscribirUsuario(InscripcionCreateDto dto) {
-
+        tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
+        usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
+        if(tallerRepository.findById(dto.idTaller()).get().getEstadoInscripcion().equals(EstadoInscripcion.ABIERTO)) {
+            inscripcionRepository.save(new Inscripcion(dto.idTaller(), dto.idUsuario(), dto.rol()));
+        }else{
+            throw new BusinessRuleException("EL taller no admite nuevas inscripciones");
+        }
     }
 
     @Override
     public void cambiarRol(InscripcionCreateDto dto) {
+        tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
+        usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
 
+        inscripcionRepository.save(new Inscripcion(dto.idTaller(), dto.idUsuario(), dto.rol()));
     }
 
     @Override

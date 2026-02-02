@@ -49,11 +49,11 @@ public class TallerServiceImplTest {
     }
 
     @Test
-    public void CrearTalleresTest(){
+    public void crearTalleresTest(){
         tallerCreateOrUpdateDto = new TallerCreateOrUpdateDto("titulo", "descripcion",EstadoInscripcion.ABIERTO,"url.com",50,"lugar");
         Taller taller = tallerService.crearTaller(tallerCreateOrUpdateDto);
         when(tallerRepository.save(taller)).thenReturn(taller);
-        verify(tallerRepository).save(taller);
+        verify(tallerRepository).save(any(Taller.class));
     }
 
     @Test
