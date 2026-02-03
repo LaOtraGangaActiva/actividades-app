@@ -3,7 +3,6 @@ package es.fplumara.dam1.actividades.service.impl;
 import es.fplumara.dam1.actividades.dto.TallerUpdateDto;
 import es.fplumara.dam1.actividades.exception.BusinessRuleException;
 import es.fplumara.dam1.actividades.model.EstadoInscripcion;
-import es.fplumara.dam1.actividades.model.PerfilUsuario;
 import es.fplumara.dam1.actividades.model.Taller;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
 import es.fplumara.dam1.actividades.repository.TallerRepository;
@@ -32,7 +31,6 @@ class TallerServiceImplTest {
 
     private UUID tallerId;
     private Taller tallerExistente;
-    private TallerUpdateDto dto;
 
     @BeforeEach
     void setUp() {
@@ -57,74 +55,40 @@ class TallerServiceImplTest {
         when(tallerRepository.findById(tallerId))
                 .thenReturn(Optional.of(tallerExistente));
 
-
-        when(inscripcionRepository.deleteByTallerIdAndUsuarioId(
-                tallerId,
-
         TallerUpdateDto dto = new TallerUpdateDto(
-                Optional.empty(),
-                Optional.empty(),
-                Optional.empty(),
-                Optional.empty(),
-                Optional.of(8),
-                Optional.empty()
-                );
+                Optional.empty(),   // nombre
+                Optional.empty(),   // descripcion
+                Optional.empty(),   // estadoInscripcion
+                Optional.empty(),   // enlace
+                Optional.of(8),  // nuevo cupo
+                Optional.empty()    // lugar
+        );
 
-        when(tallerRepository.save(any(Taller.class))).thenAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
-        //When
+        when(tallerRepository.save(any(Taller.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        // WHEN
         Taller actualizado = tallerService.actualizarTaller(tallerId, dto);
 
+        // THEN
         assertEquals(8, actualizado.getCupo());
-        verify(tallerRepository).save(tallerExistente)
+        verify(tallerRepository).findById(tallerId);
+        verify(tallerRepository).save(tallerExistente);
+        verifyNoMoreInteractions(tallerRepository);
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*   @Test
-    void actualizarTaller_cupoMenorQueParticipant() {
+    @Test
+    void actualizarTaller_cupoMenorQueParticipant_lanzaExcepcion() {
         // GIVEN
-        when(tallerRepository.findById(tallerId)).thenReturn(Optional.of(tallerExistente));
+        when(tallerRepository.findById(tallerId))
+                .thenReturn(Optional.of(tallerExistente));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
         TallerUpdateDto dto = new TallerUpdateDto(
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
-                Optional.of(4), //  menor que participantes
+                Optional.of(4), // menor que participantes actuales
                 Optional.empty()
         );
 
@@ -134,6 +98,7 @@ class TallerServiceImplTest {
                 () -> tallerService.actualizarTaller(tallerId, dto)
         );
 
+        verify(tallerRepository).findById(tallerId);
         verify(tallerRepository, never()).save(any());
     }
 }
