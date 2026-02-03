@@ -17,38 +17,55 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     @Override
     public void inscribirUsuario(InscripcionCreateDto dto) {
-        tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
-        usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
+        Taller taller = tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
+        Usuario usuario = usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
         if(inscripcionRepository.findByTallerIdAndUsuarioId(dto.idTaller(), dto.idUsuario()).isPresent()){
             throw new BusinessRuleException("Inscripción ya creada");
         }
-        if(tallerRepository.findById(dto.idTaller()).get().getEstadoInscripcion().equals(EstadoInscripcion.ABIERTO)) {
-            inscripcionRepository.save(new Inscripcion(dto.idTaller(), dto.idUsuario(), dto.rol()));
-        }else{
+        if(taller.getEstadoInscripcion().equals(EstadoInscripcion.CERRADO)) {
             throw new BusinessRuleException("EL taller no admite nuevas inscripciones");
         }
-    }
-
-    @Override
-    public void cambiarRol(InscripcionCreateDto dto) {
-        tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
-        usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
-
+        if(!(dto.rol().equals(RolInscripcion.RESPONSABLE) && usuario.getPerfil().equals(PerfilUsuario.PROFESOR))){
+            throw new BusinessRuleException("El responsable debe ser un profesor");
+        }
+        if(dto.rol().equals(RolInscripcion.PARTICIPANTE)) {
+            if (taller.getCupo() <= inscripcionRepository.findByTallerId(dto.idTaller()).stream().filter(i -> i.getRol().equals(RolInscripcion.PARTICIPANTE)).count()) {
+                throw new BusinessRuleException("EL cupo del taller está completo");
+            }
+        }
         inscripcionRepository.save(new Inscripcion(dto.idTaller(), dto.idUsuario(), dto.rol()));
     }
 
     @Override
+    public void cambiarRol(InscripcionCreateDto dto) {
+        Taller taller = tallerRepository.findById(dto.idTaller()).orElseThrow(()-> new NotFoundException("El taller no existe"));
+        Usuario usuario = usuarioRepository.findById(dto.idUsuario()).orElseThrow(()-> new NotFoundException("El usuario no existe"));
+        if(!(dto.rol().equals(RolInscripcion.RESPONSABLE) && usuario.getPerfil().equals(PerfilUsuario.PROFESOR))){
+            throw new BusinessRuleException("El responsable debe ser un profesor");
+        }
+        if(dto.rol().equals(RolInscripcion.PARTICIPANTE)) {
+            if (taller.getCupo() >= inscripcionRepository.findByTallerId(dto.idTaller()).stream().filter(i -> i.getRol().equals(RolInscripcion.PARTICIPANTE)).count()) {
+                throw new BusinessRuleException("EL cupo del taller está completo");
+            }
+        }
+        inscripcionRepository.findByTallerIdAndUsuarioId(dto.idTaller(), dto.idUsuario()).orElseThrow(NotFoundException::new).setRol(dto.rol());
+    }
+
+    @Override
     public void expulsarusuario(UUID tallerId, UUID usuarioId) {
+        inscripcionRepository.findByTallerIdAndUsuarioId(tallerId, usuarioId).orElseThrow(NotFoundException::new);
         inscripcionRepository.deleteByTallerIdAndUsuarioId(tallerId, usuarioId);
     }
 
     @Override
     public List<Inscripcion> listarInscripcionesDeTaller(UUID tallerId) {
+        tallerRepository.findById(tallerId).orElseThrow(()-> new NotFoundException("El taller no existe"));
         return inscripcionRepository.findByTallerId(tallerId);
     }
 
     @Override
     public List<Inscripcion> listarInscripcionesDeUsuario(UUID usuarioId) {
+        usuarioRepository.findById(usuarioId).orElseThrow(()-> new NotFoundException("El usuario no existe"));
         return inscripcionRepository.findByUsuarioId(usuarioId);
     }
 
