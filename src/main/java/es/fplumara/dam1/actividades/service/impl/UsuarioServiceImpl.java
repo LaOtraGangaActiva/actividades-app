@@ -32,19 +32,19 @@ import java.util.UUID;
     public Usuario crearUsuario(UsuarioCreateDto dto) {
         // Validate name
         if (dto.nombre() == null || dto.nombre().isBlank()) {
-            throw new BusinessRuleException("Name is required");
+            throw new BusinessRuleException("El nombre es obligatorio");
         }
 
         // Validate course/profile rule
         if (dto.curso() != null && dto.perfil() != PerfilUsuario.ALUMNO) {
-            throw new BusinessRuleException("Course only allowed for STUDENTS");
+            throw new BusinessRuleException("El curso solo está disponible para estudiantes");
         }
 
         // Check for duplicate email
         if (dto.email() != null && !dto.email().isBlank()) {
             usuarioRepository.findByEmail(dto.email())
                     .ifPresent(u -> {
-                        throw new BusinessRuleException("Email already exists");
+                        throw new BusinessRuleException("El correo electrónico ya está registrado");
                     });
         }
 
@@ -52,7 +52,7 @@ import java.util.UUID;
         if (dto.discordUserId() != null && !dto.discordUserId().isBlank()) {
             usuarioRepository.findByDiscordUserId(dto.discordUserId())
                     .ifPresent(u -> {
-                        throw new BusinessRuleException("Discord ID already exists");
+                        throw new BusinessRuleException("El ID de Discord ya existe");
                     });
         }
 
@@ -86,13 +86,13 @@ import java.util.UUID;
     public Usuario actualizarUsuario(UUID id, UsuarioUpdateDto dto) {
         // Find existing user
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
 
         // Update name if provided
         if (dto.nombre().isPresent()) {
             String newName = dto.nombre().get();
             if (newName.isBlank()) {
-                throw new BusinessRuleException("Name cannot be empty");
+                throw new BusinessRuleException("El nombre no puede estar vacío");
             }
             usuario.setNombre(newName);
         }
@@ -110,7 +110,7 @@ import java.util.UUID;
         // Update course if provided (only for students)
         if (dto.curso().isPresent()) {
             if (usuario.getPerfil() != PerfilUsuario.ALUMNO) {
-                throw new BusinessRuleException("Course only allowed for STUDENTS");
+                throw new BusinessRuleException("El curso solo está disponible para estudiantes");
             }
             usuario.setCurso(dto.curso().get());
         }
@@ -123,7 +123,7 @@ import java.util.UUID;
                 usuarioRepository.findByEmail(newEmail)
                         .ifPresent(otherUser -> {
                             if (!otherUser.getId().equals(id)) {
-                                throw new BusinessRuleException("Email already in use");
+                                throw new BusinessRuleException("El correo electrónico ya está en uso");
                             }
                         });
                 usuario.setEmail(newEmail);
@@ -138,7 +138,7 @@ import java.util.UUID;
                 usuarioRepository.findByDiscordUserId(newDiscordId)
                         .ifPresent(otherUser -> {
                             if (!otherUser.getId().equals(id)) {
-                                throw new BusinessRuleException("Discord ID already in use");
+                                throw new BusinessRuleException("El ID de Discord ya está en uso");
                             }
                         });
                 usuario.setDiscordUserId(newDiscordId);
@@ -153,7 +153,7 @@ import java.util.UUID;
     public void eliminarUsuario(UUID id) {
         // Check if user exists
         usuarioRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado. "));
 
         //delete all userinscriptions first (cascade)
         inscripcionRepository.deleteByUsuarioId(id);

@@ -1,6 +1,5 @@
 package es.fplumara.dam1.actividades.model;
 
-import java.net.URL;
 import java.util.UUID;
 
 public class Taller implements Identificable<UUID> {
@@ -14,7 +13,7 @@ public class Taller implements Identificable<UUID> {
 
 
     // constructor with id for existing talleres
-    public Taller(UUID id, String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
+    public Taller() {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

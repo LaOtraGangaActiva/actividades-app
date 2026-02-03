@@ -44,4 +44,9 @@ public class InMemoryInscripcionRepository extends InMemoryRepository<Inscripcio
     public void deleteByTallerIdAndUsuarioId(UUID tallerId, UUID usuarioId) {
        this.deleteById(tallerId.toString() + "/" + usuarioId.toString());
     }
+
+    @Override
+    public void deleteByTallerId(UUID tallerId) {
+
+    }
 }

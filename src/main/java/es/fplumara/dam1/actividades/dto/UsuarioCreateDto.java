@@ -17,4 +17,7 @@ public record UsuarioCreateDto(
         @Email(message = "Email no válido")
         String email
 ) {}
+/* So notBlank ensure the String is not null, empty and whitespace
+notNull ensurees the field is not null but allows empty String
+ */
 
