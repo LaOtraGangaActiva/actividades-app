@@ -84,7 +84,7 @@ class TallerServiceImplTest {
                 .thenReturn(Optional.of(tallerExistente));
 
         TallerUpdateDto dto = new TallerUpdateDto(
-                Optional.empty(),
+                Optional.of(""),
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
