@@ -41,8 +41,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         //  Duplicate email
-        if (dto.email() != null && !dto.email().isBlank()) {
-            usuarioRepository.findByEmail(dto.email())
+        if (dto.Email() != null && !dto.Email().isBlank()) {
+            usuarioRepository.findByEmail(dto.Email())
                     .ifPresent(u -> {
                         throw new BusinessRuleException("The email is already registered");
                     });
@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.perfil(),
                 dto.discordUserId(),
                 dto.curso(),
-                dto.email()
+                dto.Email()
         );
 
         return usuarioRepository.save(usuario);
