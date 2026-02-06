@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 public class DiscordBotMain {
 
     // Pon aquí el ID del servidor de pruebas (Guild ID)
-    private static final String GUILD_ID = "1468562633304051886";
+    private static final String GUILD_ID = "1464571345055518808";
 
     public static void main(String[] args) throws Exception {
         String token = System.getenv("DISCORD_TOKEN");
@@ -16,7 +16,7 @@ public class DiscordBotMain {
 
         // 2) Arrancamos JDA
         JDA jda = JDABuilder.createDefault(token)
-                .addEventListeners(new DiscrodCommands.DiscordCommands())
+                .addEventListeners(new DiscordCommands())
                 .build()
                 .awaitReady();
 

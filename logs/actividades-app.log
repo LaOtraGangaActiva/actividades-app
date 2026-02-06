@@ -1,3 +1,4 @@
+
 2026-02-04 13:21:53 INFO  net.dv8tion.jda.api.JDA - Login Successful!
 2026-02-04 13:21:53 INFO  n.d.j.i.requests.WebSocketClient - Connected to WebSocket
 2026-02-04 13:21:54 INFO  net.dv8tion.jda.api.JDA - Finished Loading!
@@ -67,3 +68,4 @@ java.lang.NullPointerException: Cannot invoke "net.dv8tion.jda.api.interactions.
 	at com.neovisionaries.ws.client.ReadingThread.main(ReadingThread.java:108)
 	at com.neovisionaries.ws.client.ReadingThread.runMain(ReadingThread.java:64)
 	at com.neovisionaries.ws.client.WebSocketThread.run(WebSocketThread.java:45)
+

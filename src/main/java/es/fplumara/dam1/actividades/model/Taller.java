@@ -11,10 +11,7 @@ public class Taller implements Identificable<UUID> {
     private int cupo;
     private String lugar;
 
-
-    // constructor with id for existing talleres
-    public Taller() {
-        this.id = id;
+    public Taller(String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estadoInscripcion = estadoInscripcion;
@@ -22,8 +19,10 @@ public class Taller implements Identificable<UUID> {
         this.cupo = cupo;
         this.lugar = lugar;
     }
-
-    public Taller(String titulo, String descripcion, EstadoInscripcion estadoInscripcion, String url, int cupo, String lugar) {
+    // constructor with id for existing talleres
+    public Taller(UUID id, String titulo, String descripcion, EstadoInscripcion estadoInscripcion,
+                  String url, int cupo, String lugar) {
+        this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estadoInscripcion = estadoInscripcion;

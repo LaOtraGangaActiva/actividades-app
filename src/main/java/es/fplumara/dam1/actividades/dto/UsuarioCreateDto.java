@@ -14,8 +14,9 @@ public record UsuarioCreateDto(
         @NotBlank(message = "DiscordUserId es obligatorio")
         String discordUserId,
         String curso,
+        @NotBlank(message = "Email can not be blank")
         @Email(message = "Email no válido")
-        String email
+        String Email
 ) {}
 /* So notBlank ensure the String is not null, empty and whitespace
 notNull ensurees the field is not null but allows empty String

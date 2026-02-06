@@ -2,6 +2,7 @@ package es.fplumara.dam1.actividades.service.impl;
 
 import es.fplumara.dam1.actividades.dto.UsuarioCreateDto;
 import es.fplumara.dam1.actividades.exception.BusinessRuleException;
+import es.fplumara.dam1.actividades.exception.ObjectValidationError;
 import es.fplumara.dam1.actividades.model.PerfilUsuario;
 import es.fplumara.dam1.actividades.model.Usuario;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
@@ -171,12 +172,11 @@ public class UsuarioServiceImplTest {
                 "farzia@mail.com"
         );
 
-        // When and then
-        assertThrows(BusinessRuleException.class, () -> {
+        assertThrows(ObjectValidationError.class, () -> {
             service.crearUsuario(dto);
         });
 
-        // if no repository calls were made
+        // No repo interaction
         verify(usuarioRepository, never()).save(any());
     }
 }

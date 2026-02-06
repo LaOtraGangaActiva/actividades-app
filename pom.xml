@@ -140,12 +140,12 @@
             <artifactId>jakarta.el</artifactId>
             <version>4.0.2</version>
         </dependency>
-        <!-- JDA (Discord) -->
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>6.3.0</version>
-        </dependency>
+            <!-- JDA (Discord) -->
+            <dependency>
+                <groupId>net.dv8tion</groupId>
+                <artifactId>JDA</artifactId>
+                <version>6.3.0</version>
+            </dependency>
 
 
 
