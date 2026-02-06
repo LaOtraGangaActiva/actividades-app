@@ -21,21 +21,11 @@ public class DiscordCommands extends ListenerAdapter {
                     break;
 
                 case "hora":
-                    String zone = event.getOption("zone").getAsString();
-
-                    try {
-                        Date date = new Date();
-                        DateFormat df = new SimpleDateFormat("HH:mm:ss");
-                        df.setTimeZone(TimeZone.getTimeZone(UTC));
-                        String horaFormateada = df.format(date);
-
-                        event.reply("Hours en " + zone + ": " + horaFormateada)
-                                .queue();
-
-                    } catch (Exception e) {
-                        event.reply(" Zona horar invali").queue();
-                    }
-                    break;
+                    String zoneId = event.getOption("zone").getAsString();
+                    Date date = new Date();
+                    DateFormat df = new SimpleDateFormat("HH:mm:ss");
+                    df.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
+                    String horaFormateada = df.format(date);
             }
         }
     }

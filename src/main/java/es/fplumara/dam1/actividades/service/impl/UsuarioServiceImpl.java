@@ -8,6 +8,8 @@ import es.fplumara.dam1.actividades.model.PerfilUsuario;
 import es.fplumara.dam1.actividades.model.Usuario;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
 import es.fplumara.dam1.actividades.repository.UsuarioRepository;
+import es.fplumara.dam1.actividades.repository.memory.InMemoryInscripcionRepository;
+import es.fplumara.dam1.actividades.repository.memory.InMemoryUsuarioRepository;
 import es.fplumara.dam1.actividades.service.UsuarioService;
 import es.fplumara.dam1.actividades.util.ValidatorUtils;
 
@@ -17,16 +19,8 @@ import java.util.UUID;
 
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
-    private final InscripcionRepository inscripcionRepository;
-
-    public UsuarioServiceImpl(
-            UsuarioRepository usuarioRepository,
-            InscripcionRepository inscripcionRepository
-    ) {
-        this.usuarioRepository = usuarioRepository;
-        this.inscripcionRepository = inscripcionRepository;
-    }
+    private final UsuarioRepository usuarioRepository = new InMemoryUsuarioRepository();
+    private final InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
 
     // CREATE
     @Override

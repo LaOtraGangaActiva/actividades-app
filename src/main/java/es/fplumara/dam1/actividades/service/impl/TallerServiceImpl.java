@@ -9,6 +9,8 @@ import es.fplumara.dam1.actividades.model.RolInscripcion;
 import es.fplumara.dam1.actividades.model.Taller;
 import es.fplumara.dam1.actividades.repository.InscripcionRepository;
 import es.fplumara.dam1.actividades.repository.TallerRepository;
+import es.fplumara.dam1.actividades.repository.memory.InMemoryInscripcionRepository;
+import es.fplumara.dam1.actividades.repository.memory.InMemoryTallerRepository;
 import es.fplumara.dam1.actividades.service.TallerService;
 import es.fplumara.dam1.actividades.util.ValidatorUtils;
 
@@ -17,17 +19,8 @@ import java.util.UUID;
 
 public class TallerServiceImpl implements TallerService {
 
-    private final TallerRepository tallerRepository;
-    private final InscripcionRepository inscripcionRepository;
-
-    // ✅ Constructor injection (MANDATORY)
-    public TallerServiceImpl(
-            TallerRepository tallerRepository,
-            InscripcionRepository inscripcionRepository
-    ) {
-        this.tallerRepository = tallerRepository;
-        this.inscripcionRepository = inscripcionRepository;
-    }
+    private final TallerRepository tallerRepository = new InMemoryTallerRepository();
+    private final InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
 
     // CREATE
     @Override

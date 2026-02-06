@@ -29,7 +29,6 @@ public class DiscordBotMain {
         guild.upsertCommand("hora","Dime la hora")
                 .addOption(OptionType.STRING, "zone", "Lugar del mundo")
                 .queue();
-        guild.upsertCommand("ping","Pasa la bola!").queue();
 
 
     }
