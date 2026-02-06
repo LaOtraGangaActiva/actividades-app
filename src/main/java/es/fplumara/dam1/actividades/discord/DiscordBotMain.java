@@ -29,7 +29,8 @@ public class DiscordBotMain {
         guild.upsertCommand("hora","Dime la hora")
                 .addOption(OptionType.STRING, "zone", "Lugar del mundo")
                 .queue();
-
+        guild.upsertCommand("usuario", "comandos de user")
+                .addOption(OptionType.STRING, "mostrar", "muestra todos los usuarios").queue();
 
     }
 }

@@ -19,8 +19,13 @@ import java.util.UUID;
 
 public class TallerServiceImpl implements TallerService {
 
-    private final TallerRepository tallerRepository = new InMemoryTallerRepository();
-    private final InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
+    private final TallerRepository tallerRepository;
+    private final InscripcionRepository inscripcionRepository;
+
+    public TallerServiceImpl(TallerRepository tallerRepository, InscripcionRepository inscripcionRepository) {
+        this.tallerRepository = tallerRepository;
+        this.inscripcionRepository = inscripcionRepository;
+    }
 
     // CREATE
     @Override

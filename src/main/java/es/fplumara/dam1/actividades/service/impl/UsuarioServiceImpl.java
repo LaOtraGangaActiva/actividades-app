@@ -19,8 +19,13 @@ import java.util.UUID;
 
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository usuarioRepository = new InMemoryUsuarioRepository();
-    private final InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
+    private final UsuarioRepository usuarioRepository;
+    private final InscripcionRepository inscripcionRepository;
+
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, InscripcionRepository inscripcionRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.inscripcionRepository = inscripcionRepository;
+    }
 
     // CREATE
     @Override
