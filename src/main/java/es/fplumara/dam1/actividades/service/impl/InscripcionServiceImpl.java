@@ -16,6 +16,12 @@ public class InscripcionServiceImpl implements InscripcionService {
     private UsuarioRepository usuarioRepository = new InMemoryUsuarioRepository();
     private TallerRepository tallerRepository = new InMemoryTallerRepository();
 
+    public InscripcionServiceImpl(InscripcionRepository inscripcionRepository, UsuarioRepository usuarioRepository, TallerRepository tallerRepository) {
+        this.inscripcionRepository = inscripcionRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.tallerRepository = tallerRepository;
+    }
+
     @Override
     public void inscribirUsuario(InscripcionCreateDto dto) {
         ValidatorUtils.validateEntity(dto);
