@@ -1,4 +1,8 @@
-package es.fplumara.dam1.actividades.config;
+/*package es.fplumara.dam1.actividades.config;
+
+import es.fplumara.dam1.actividades.service.InscripcionService;
+import es.fplumara.dam1.actividades.service.TallerService;
+import es.fplumara.dam1.actividades.service.UsuarioService;
 
 import es.fplumara.dam1.actividades.service.*;
 import es.fplumara.dam1.actividades.service.impl.InscripcionServiceImpl;

@@ -23,11 +23,11 @@ public class DiscordBotMain {
         // 3) Registramos slash commands
         var guild = jda.getGuildById(GUILD_ID);
         if (guild == null) {
-            throw new IllegalStateException("can not find el guild with ID " + GUILD_ID);
+            throw new IllegalStateException("No encuentro el guild con id " + GUILD_ID);
         }
         guild.upsertCommand("ping","Pasa la bola!").queue();
         guild.upsertCommand("hora","Dime la hora")
-                .addOption(OptionType.STRING, "zone", "Lugar del mundo")
+                .addOption(OptionType.STRING, "zone", "cualquir Lugar del mundo")
                 .queue();
 
 
