@@ -8,7 +8,6 @@
     <artifactId>actividades</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -21,13 +20,8 @@
         <commons-csv.version>1.14.1</commons-csv.version>
         <jakarta-validation.version>3.1.1</jakarta-validation.version>
         <hibernate-validator.version>9.1.0.Final</hibernate-validator.version>
-        <jda.version>6.3.0</jda.version> <!-- JDA actual -->
+        <jda.version>6.3.0</jda.version>
     </properties>
-
-
-
-
-
 
     <build>
         <plugins>
@@ -69,7 +63,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <!-- Parameterized Tests -->
         <dependency>
@@ -140,14 +133,12 @@
             <artifactId>jakarta.el</artifactId>
             <version>4.0.2</version>
         </dependency>
-            <!-- JDA (Discord) -->
-            <dependency>
-                <groupId>net.dv8tion</groupId>
-                <artifactId>JDA</artifactId>
-                <version>6.3.0</version>
-            </dependency>
-
-
-
+       
+        <!-- JDA (Discord) -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>${jda.version}</version>
+        </dependency>
     </dependencies>
 </project>
